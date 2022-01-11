@@ -1,0 +1,9 @@
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\Final project\bin\Debug\Final project.exe.config
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\Final project\bin\Debug\Final project.exe
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\Final project\bin\Debug\Final project.pdb
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\Final project\obj\Debug\Final project.csproj.AssemblyReference.cache
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\Final project\obj\Debug\Final_project.Ui.FormGameSettings.resources
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\Final project\obj\Debug\Final project.csproj.GenerateResource.cache
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\Final project\obj\Debug\Final project.csproj.CoreCompileInputs.cache
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\Final project\obj\Debug\Final project.exe
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\Final project\obj\Debug\Final project.pdb

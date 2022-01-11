@@ -39,7 +39,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enum\eGuessLetter.cs" />
+    <Compile Include="Enum\eGuessResult.cs" />
+    <Compile Include="Logic\GameLogic.cs" />
+    <Compile Include="Model\BoardModel.cs" />
     <Compile Include="Model\GameSettingsModel.cs" />
+    <Compile Include="Model\RandomGuessesModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Ui\FormGameSettings.cs">
       <SubType>Form</SubType>

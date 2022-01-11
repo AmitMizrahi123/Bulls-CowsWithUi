@@ -46,6 +46,21 @@
     <Compile Include="Model\GameSettingsModel.cs" />
     <Compile Include="Model\RandomGuessesModel.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Ui\ButtonsBoard.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ui\ButtonsEndGuessing.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ui\BoolPgia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ui\BoolPgia.Designer.cs">
+      <DependentUpon>BoolPgia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\FlowLayoutPanelColor.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Ui\FormGameSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +77,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Ui\BoolPgia.resx">
+      <DependentUpon>BoolPgia.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ui\FormGameSettings.resx">
       <DependentUpon>FormGameSettings.cs</DependentUpon>
     </EmbeddedResource>

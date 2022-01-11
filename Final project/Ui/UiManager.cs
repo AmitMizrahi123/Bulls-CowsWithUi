@@ -8,6 +8,7 @@ namespace Final_project.Ui
         private FormGameSettings m_FormGameSettings;
         private GameSettingsModel m_GameSettingsModel = new GameSettingsModel();
         private GameLogic m_GameLogic;
+        private BoolPgia m_BoolPgia;
 
         public void Execute()
         {
@@ -16,6 +17,8 @@ namespace Final_project.Ui
             if(m_GameSettingsModel.StartGame)
             {
                 m_GameLogic = new GameLogic(m_GameSettingsModel.NumberOfChances);
+                m_BoolPgia = new BoolPgia(m_GameSettingsModel);
+                m_BoolPgia.ShowDialog();
             }
         }
     }

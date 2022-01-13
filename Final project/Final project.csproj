@@ -46,12 +46,6 @@
     <Compile Include="Model\GameSettingsModel.cs" />
     <Compile Include="Model\RandomGuessesModel.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Ui\ButtonsBoard.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Ui\ButtonsEndGuessing.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Ui\BoolPgia.cs">
       <SubType>Form</SubType>
     </Compile>

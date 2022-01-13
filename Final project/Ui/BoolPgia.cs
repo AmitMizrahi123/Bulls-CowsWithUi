@@ -2,24 +2,21 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Final_project.Logic;
 using Final_project.Model;
 
 namespace Final_project.Ui
 {
     public partial class BoolPgia : Form
     {
-        private int m_CounterGuesses = 0;
-        private bool m_IsUserInsertFourGuessing;
-        private readonly List<Color> r_PressedButtonColor;
         private readonly GameSettingsModel r_GameSettingsModel;
         private Button[,] m_BoardButtons;
         private Button[] m_ButtonEndGuessing;
         private Button[,] m_ButtonGuessingResults;
 
-        public BoolPgia(GameSettingsModel io_GameSettingsModel)
+        public BoolPgia(ref GameSettingsModel io_GameSettingsModel, GameLogic i_GameLogic)
         {
             r_GameSettingsModel = io_GameSettingsModel;
-            r_PressedButtonColor = new List<Color>();
             InitializeComponent();
             initializeBoard();
         }
@@ -109,25 +106,6 @@ namespace Final_project.Ui
             Button button = (Button)i_Sender;
             
             flowLayoutPanelColor.ShowDialog();
-            if(!isColorAlreadyPick())
-            {
-                r_PressedButtonColor.Add(r_GameSettingsModel.Color);
-                button.BackColor = r_GameSettingsModel.Color;
-                if (!m_IsUserInsertFourGuessing)
-                {
-                    m_CounterGuesses++;
-                    if (m_CounterGuesses.Equals(4))
-                    {
-                        m_IsUserInsertFourGuessing = true;
-                        m_ButtonEndGuessing[0].Enabled = true;
-                    }
-                }
-            }
-        }
-
-        private bool isColorAlreadyPick()
-        {
-            return r_PressedButtonColor.Contains(r_GameSettingsModel.Color); // todo move it to game logic
         }
     }
 }

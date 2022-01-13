@@ -12,7 +12,7 @@ namespace Final_project.Ui
         private readonly List<Color> r_Colors;
         private readonly GameSettingsModel r_GameSettingsModel;
 
-        public FlowLayoutPanelColor(GameSettingsModel io_GameSettingsModel)
+        public FlowLayoutPanelColor(ref GameSettingsModel io_GameSettingsModel)
         {
             r_Colors = new List<Color>()
             {

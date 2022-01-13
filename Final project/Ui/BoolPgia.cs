@@ -9,14 +9,14 @@ namespace Final_project.Ui
 {
     public partial class BoolPgia : Form
     {
-        private readonly GameSettingsModel r_GameSettingsModel;
-        private Button[,] m_BoardButtons;
+        private GameSettingsModel m_GameSettingsModel;
+        private Button[,] m_ButtonsGuess;
         private Button[] m_ButtonEndGuessing;
         private Button[,] m_ButtonGuessingResults;
 
-        public BoolPgia(ref GameSettingsModel io_GameSettingsModel, GameLogic i_GameLogic)
+        public BoolPgia(GameSettingsModel i_GameSettingsModel)
         {
-            r_GameSettingsModel = io_GameSettingsModel;
+            m_GameSettingsModel = i_GameSettingsModel;
             InitializeComponent();
             initializeBoard();
         }
@@ -30,30 +30,29 @@ namespace Final_project.Ui
 
         private void generateButtonGuess()
         {
-            m_BoardButtons = new Button[r_GameSettingsModel.NumberOfChances, r_GameSettingsModel.DefaultNumberOfGuessing];
-            for(int i = 0; i < r_GameSettingsModel.NumberOfChances; i++)
+            m_ButtonsGuess = new Button[m_GameSettingsModel.NumberOfChances, m_GameSettingsModel.DefaultNumberOfGuessing];
+            for(int i = 0; i < m_GameSettingsModel.NumberOfChances; i++)
             {
                 this.Height += 65;
 
-                for (int j = 0; j < r_GameSettingsModel.DefaultNumberOfGuessing; j++)
+                for (int j = 0; j < m_GameSettingsModel.DefaultNumberOfGuessing; j++)
                 {
-                    m_BoardButtons[i, j] = new Button()
+                    m_ButtonsGuess[i, j] = new Button()
                     {
                        Size = new Size(50, 50),
-                       Location = new Point((j * 56) + 12, (i * 70) + 80),
-                       ForeColor = Color.Black,
+                       Location = new Point((j * 56) + 12, (i * 70) + 80)
                     };
 
-                    m_BoardButtons[i, j].Click += buttonBoard_Click;
-                    this.Controls.Add(m_BoardButtons[i, j]);
+                    m_ButtonsGuess[i, j].Click += buttonGuess_Click;
+                    this.Controls.Add(m_ButtonsGuess[i, j]);
                 }
             }
         }
 
         private void generateButtonEndGuessing()
         {
-            m_ButtonEndGuessing = new Button[r_GameSettingsModel.NumberOfChances];
-            for(int i = 0; i < r_GameSettingsModel.NumberOfChances; i++)
+            m_ButtonEndGuessing = new Button[m_GameSettingsModel.NumberOfChances];
+            for(int i = 0; i < m_GameSettingsModel.NumberOfChances; i++)
             {
                 m_ButtonEndGuessing[i] = new Button()
                 {
@@ -69,10 +68,10 @@ namespace Final_project.Ui
 
         private void generateButtonGuessingResult()
         {
-            m_ButtonGuessingResults = new Button[r_GameSettingsModel.NumberOfChances, r_GameSettingsModel.DefaultNumberOfGuessing];
-            for (int i = 0; i < r_GameSettingsModel.NumberOfChances; i++)
+            m_ButtonGuessingResults = new Button[m_GameSettingsModel.NumberOfChances, m_GameSettingsModel.DefaultNumberOfGuessing];
+            for (int i = 0; i < m_GameSettingsModel.NumberOfChances; i++)
             {
-                for (int j = 0; j < r_GameSettingsModel.DefaultNumberOfGuessing; j++)
+                for (int j = 0; j < m_GameSettingsModel.DefaultNumberOfGuessing; j++)
                 {
                     if(j <= 1)
                     {
@@ -80,7 +79,6 @@ namespace Final_project.Ui
                         {
                             Size = new Size(20, 20),
                             Location = new Point((j * 30) + 320, (i * 70) + 110),
-                            ForeColor = Color.Black,
                             Enabled = false
                         };
                     }
@@ -90,7 +88,6 @@ namespace Final_project.Ui
                         {
                             Size = new Size(20, 20),
                             Location = new Point((j * 30) + 260, (i * 70) + 80),
-                            ForeColor = Color.Black,
                             Enabled = false
                         };
                     }
@@ -100,12 +97,13 @@ namespace Final_project.Ui
             }
         }
 
-        private void buttonBoard_Click(object i_Sender, EventArgs i_Event)
+        private void buttonGuess_Click(object i_Sender, EventArgs i_Event)
         {
-            FlowLayoutPanelColor flowLayoutPanelColor = new FlowLayoutPanelColor(r_GameSettingsModel);
+            FlowLayoutPanelColor flowLayoutPanelColor = new FlowLayoutPanelColor(ref m_GameSettingsModel);
             Button button = (Button)i_Sender;
             
             flowLayoutPanelColor.ShowDialog();
+            button.BackColor = m_GameSettingsModel.Color;
         }
     }
 }

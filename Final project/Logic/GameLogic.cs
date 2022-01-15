@@ -54,7 +54,7 @@ namespace Final_project.Logic
             return r_RandomGuessesModel.RandomGuessLetters.Contains(i_RandomGuessLetter);
         }
 
-        public void InsertToGuessingList(List<Color> i_Color, int i_Index)
+        public void UpdateGuessingLetters(List<Color> i_Color, int i_Index)
         {
             int index = 0;
 
@@ -81,7 +81,7 @@ namespace Final_project.Logic
                 case "Green":
                     guessLetter = eGuessLetter.C;
                     break;
-                case "BlueSky":
+                case "SkyBlue":
                     guessLetter = eGuessLetter.D;
                     break;
                 case "Blue":
@@ -102,6 +102,83 @@ namespace Final_project.Logic
             }
 
             return guessLetter;
+        }
+
+        public void ComparisonRandomGuessesToUserGuesses(int i_Index)
+        {
+            int guessingResultIndex = 0;
+
+            for (int j = 0; j < r_BoardModel.DefaultArraySize; j++)
+            {
+                if (checkIfUserGuessEqualsToRandomGuesses(r_BoardModel,
+                    r_RandomGuessesModel.RandomGuessLetters, i_Index, j))
+                {
+                    r_BoardModel.GuessingResult[i_Index, guessingResultIndex++] = eGuessResult.V;
+                }
+            }
+
+            for (int i = 0; i < r_RandomGuessesModel.RandomGuessLetters.Count; i++)
+            {
+                for (int j = 0; j < r_BoardModel.DefaultArraySize; j++)
+                {
+                    if (i == j)
+                    {
+                        continue;
+                    }
+
+                    eGuessLetter guessLetterFromUser = r_BoardModel.GuessingLetters[i_Index, j];
+                    eGuessLetter letterFromComputer = r_RandomGuessesModel.RandomGuessLetters[i];
+
+                    if (checkIfUserGuessEqualToRandomGuess(guessLetterFromUser, letterFromComputer))
+                    {
+                        r_BoardModel.GuessingResult[i_Index, guessingResultIndex++] = eGuessResult.X;
+                    }
+                }
+            }
+        }
+
+        private bool checkIfUserGuessEqualsToRandomGuesses(BoardModel i_BoardModel, List<eGuessLetter> i_RandomGuessesNumbers, int i_Row, int i_Col)
+        {
+            return i_BoardModel.GuessingLetters[i_Row, i_Col].Equals(i_RandomGuessesNumbers[i_Col]);
+        }
+
+        private bool checkIfUserGuessEqualToRandomGuess(eGuessLetter i_UserGuess, eGuessLetter i_RandomGuess)
+        {
+            return i_UserGuess.Equals(i_RandomGuess);
+        }
+
+        public List<Color> GetGuessResultsInColors(int i_Index)
+        {
+            List<Color> colors = new List<Color>();
+
+            for(int i = 0; i < r_BoardModel.DefaultArraySize; i++)
+            {
+                Color color = convertGuessResultEnumToColor(r_BoardModel.GuessingResult[i_Index, i]);
+
+                colors.Add(color);
+            }
+
+            return colors;
+        }
+
+        private Color convertGuessResultEnumToColor(eGuessResult i_GuessResult)
+        {
+            Color color;
+
+            switch(i_GuessResult)
+            {
+                case (eGuessResult.V):
+                    color = Color.Black;
+                    break;
+                case eGuessResult.X:
+                    color = Color.Yellow;
+                    break;
+                default:
+                    color = Color.Empty;
+                    break;
+            }
+
+            return color;
         }
     }
 }

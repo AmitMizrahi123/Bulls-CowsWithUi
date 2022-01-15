@@ -17,7 +17,7 @@ namespace Final_project.Ui
             if(m_GameSettingsModel.StartGame)
             {
                 m_GameLogic = new GameLogic(m_GameSettingsModel.NumberOfChances);
-                m_BoolPgia = new BoolPgia(m_GameSettingsModel);
+                m_BoolPgia = new BoolPgia(m_GameSettingsModel, m_GameLogic);
                 m_BoolPgia.ShowDialog();
             }
         }

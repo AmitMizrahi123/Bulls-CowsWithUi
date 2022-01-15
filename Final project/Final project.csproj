@@ -52,6 +52,12 @@
     <Compile Include="Ui\BoolPgia.Designer.cs">
       <DependentUpon>BoolPgia.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ui\ButtonEndGuessing.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ui\ButtonGuess.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Ui\FlowLayoutPanelColor.cs">
       <SubType>Form</SubType>
     </Compile>

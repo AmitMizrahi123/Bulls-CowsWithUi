@@ -140,6 +140,7 @@ namespace Final_project.Ui
 
                         button.BackColor = m_GameSettingsModel.Color;
                         r_ButtonColorsPressed[buttonIndex].Add(m_GameSettingsModel.Color);
+                        m_GameSettingsModel.Color = Color.Empty;
                         if (userEnterFourGuesses(buttonIndex) && !isButtonEndGuessingEnable(buttonIndex))
                         {
                             m_ButtonEndGuessing[buttonIndex].Enabled = true;
@@ -217,8 +218,13 @@ namespace Final_project.Ui
                     m_ButtonsGuessing[i].BackColor = colors[i];
                 }
 
-                Thread.Sleep(5000);
-                Close();
+                for(int i = i_ButtonIndex; i < m_GameSettingsModel.NumberOfChances; i++)
+                {
+                    for(int j = 0; j < m_GameSettingsModel.DefaultNumberOfGuessing; j++)
+                    {
+                        m_ButtonsGuess[i, j].Enabled = false;
+                    }
+                }
             }
         }
 

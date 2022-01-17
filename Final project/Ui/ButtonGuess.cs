@@ -4,13 +4,13 @@ namespace Final_project.Ui
 {
     public class ButtonGuess : Button
     {
-        private readonly int r_ButtonNumber;
         private readonly int r_ButtonIndex;
+        private readonly int r_ButtonNumber;
 
-        public ButtonGuess(int i_ButtonNumber, int i_ButtonIndex)
+        public ButtonGuess(int i_ButtonIndex, int i_ButtonNumber)
         {
-            r_ButtonNumber = i_ButtonNumber;
             r_ButtonIndex = i_ButtonIndex;
+            r_ButtonNumber = i_ButtonNumber;
         }
 
         public int ButtonNumber

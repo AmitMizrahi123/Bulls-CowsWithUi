@@ -9,6 +9,8 @@ namespace Final_project.Ui
 {
     public partial class BoolPgia : Form
     {
+        private static int s_GuessingNumber;
+        private static int s_GuessNumber;
         private readonly List<List<Color>> r_ButtonColorsPressed;
         private readonly GameLogic r_GameLogic;
         private GameSettingsModel m_GameSettingsModel;
@@ -49,7 +51,7 @@ namespace Final_project.Ui
 
                 for (int j = 0; j < defaultNumberOfGuessing; j++)
                 {
-                    m_ButtonsGuess[i, j] = new ButtonGuess(j, i)
+                    m_ButtonsGuess[i, j] = new ButtonGuess(i, j)
                     {
                        Size = new Size(50, 50),
                        Location = new Point((j * 56) + 12, (i * 70) + 80)
@@ -119,29 +121,39 @@ namespace Final_project.Ui
         {
             ButtonGuess button = (ButtonGuess)i_Sender;
             int buttonIndex = button.ButtonIndex;
-            FlowLayoutPanelColor flowLayoutPanelColor = new FlowLayoutPanelColor(ref m_GameSettingsModel);
-
-            flowLayoutPanelColor.ShowDialog();
-            if(userEnterColorThatAlreadyPick(buttonIndex, m_GameSettingsModel.Color))
+            int buttonNumber = button.ButtonNumber;
+            if(buttonIndex.Equals(s_GuessingNumber) && buttonNumber.Equals(s_GuessNumber))
             {
-                return;
-            }
+                FlowLayoutPanelColor flowLayoutPanelColor = new FlowLayoutPanelColor(ref m_GameSettingsModel);
 
-            if(userEnterFourGuesses(buttonIndex))
-            {
-                if(userEnterColorThatAlreadyPick(buttonIndex, m_GameSettingsModel.Color))
+                flowLayoutPanelColor.ShowDialog();
+                if (!userEnterColorThatAlreadyPick(buttonIndex, m_GameSettingsModel.Color))
                 {
-                    return;
+                    if (userEnterFourGuesses(buttonIndex) || userChangeColorThatHeAlreadyPick(buttonIndex, buttonNumber))
+                    {
+                        r_ButtonColorsPressed[buttonIndex].Remove(button.BackColor);
+                    }
+
+                    s_GuessNumber++;
+                    button.BackColor = m_GameSettingsModel.Color;
+                    r_ButtonColorsPressed[buttonIndex].Add(m_GameSettingsModel.Color);
+                    if (userEnterFourGuesses(buttonIndex) && !isButtonEndGuessingEnable(buttonIndex))
+                    {
+                        m_ButtonEndGuessing[buttonIndex].Enabled = true;
+                    }
                 }
-
-                r_ButtonColorsPressed[buttonIndex].Remove(button.BackColor);
             }
+        }
 
-            button.BackColor = m_GameSettingsModel.Color;
-            r_ButtonColorsPressed[buttonIndex].Add(m_GameSettingsModel.Color);
-            if(userEnterFourGuesses(buttonIndex) && !isEndGuessingButtonEnable(buttonIndex))
+        private bool userChangeColorThatHeAlreadyPick(int i_ButtonIndex, int i_ButtonNumber)
+        {
+            try
             {
-                m_ButtonEndGuessing[buttonIndex].Enabled = true;
+                return !r_ButtonColorsPressed[i_ButtonIndex][i_ButtonNumber].Equals(null);
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
 
@@ -155,21 +167,34 @@ namespace Final_project.Ui
             return r_ButtonColorsPressed[i_Index].Contains(i_Color);
         }
 
-        private bool isEndGuessingButtonEnable(int i_Index)
+        private bool isButtonEndGuessingEnable(int i_Index)
         {
             return m_ButtonEndGuessing[i_Index].Enabled;
         }
 
         private void buttonEndGuessing_Click(object i_Sender, EventArgs i_Event)
         {
+            s_GuessNumber = 0;
+            s_GuessingNumber++;
             ButtonEndGuessing button = (ButtonEndGuessing)i_Sender;
             int buttonIndex = button.ButtonIndex;
 
             button.Enabled = false;
+            button.CountButtonPressed++;
             r_GameLogic.UpdateGuessingLetters(r_ButtonColorsPressed[buttonIndex], buttonIndex);
             r_GameLogic.ComparisonRandomGuessesToUserGuesses(buttonIndex);
             updateButtonGuessingResult(buttonIndex);
             disableUserGuessing(buttonIndex);
+            // Todo winner
+            gameOver(button.CountButtonPressed);
+        }
+
+        private void gameOver(int i_ButtonPressedCount)
+        {
+            if(i_ButtonPressedCount.Equals(m_GameSettingsModel.NumberOfChances))
+            {
+                Environment.Exit(0);
+            }
         }
 
         private void disableUserGuessing(int i_ButtonIndex)

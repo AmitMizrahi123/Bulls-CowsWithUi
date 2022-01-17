@@ -10,11 +10,11 @@ namespace Final_project.Ui
 {
     public partial class BoolPgia : Form
     {
-        private static int s_NumberOfChance = 0;
+        private static int s_NumberOfChance;
         private const int k_AddingHeight = 65;
         private const string k_ButtonCancelName = "0";
-        private readonly List<List<Color>> r_ButtonColorsPressed;
         private readonly GameLogic r_GameLogic;
+        private List<List<Color>> m_ButtonColorsPressed;
         private GameSettingsModel m_GameSettingsModel;
         private ButtonGuess[,] m_ButtonsGuess;
         private ButtonEndGuessing[] m_ButtonEndGuessing;
@@ -22,16 +22,20 @@ namespace Final_project.Ui
 
         public BoolPgia(GameSettingsModel i_GameSettingsModel, GameLogic i_GameLogic)
         {
-            r_ButtonColorsPressed = new List<List<Color>>();
-            for(int i = 0; i < i_GameSettingsModel.NumberOfChances; i++)
-            {
-                r_ButtonColorsPressed.Add(new List<Color>());
-            }
-
             r_GameLogic = i_GameLogic;
             m_GameSettingsModel = i_GameSettingsModel;
+            initializeButtonColorsPressedMatrix(m_GameSettingsModel.NumberOfChances);
             InitializeComponent();
             initializeBoard();
+        }
+
+        private void initializeButtonColorsPressedMatrix(int i_NumberOfChances)
+        {
+            m_ButtonColorsPressed = new List<List<Color>>();
+            for (int i = 0; i < i_NumberOfChances; i++)
+            {
+                m_ButtonColorsPressed.Add(new List<Color>());
+            }
         }
 
         private void initializeBoard()
@@ -124,6 +128,7 @@ namespace Final_project.Ui
             ButtonGuess button = (ButtonGuess)i_Sender;
             int buttonIndex = button.ButtonIndex;
             int buttonNumber = button.ButtonNumber;
+
             if(buttonIndex.Equals(s_NumberOfChance))
             {
                 FlowLayoutPanelColor flowLayoutPanelColor = new FlowLayoutPanelColor(ref m_GameSettingsModel);
@@ -135,11 +140,11 @@ namespace Final_project.Ui
                     {
                         if (userEnterFourGuesses(buttonIndex) || userChangeColorThatHeAlreadyPick(buttonIndex, buttonNumber))
                         {
-                            r_ButtonColorsPressed[buttonIndex].Remove(button.BackColor);
+                            m_ButtonColorsPressed[buttonIndex].Remove(button.BackColor);
                         }
 
                         button.BackColor = m_GameSettingsModel.Color;
-                        r_ButtonColorsPressed[buttonIndex].Add(m_GameSettingsModel.Color);
+                        m_ButtonColorsPressed[buttonIndex].Add(m_GameSettingsModel.Color);
                         m_GameSettingsModel.Color = Color.Empty;
                         if (userEnterFourGuesses(buttonIndex) && !isButtonEndGuessingEnable(buttonIndex))
                         {
@@ -159,7 +164,7 @@ namespace Final_project.Ui
         {
             try
             {
-                return !r_ButtonColorsPressed[i_ButtonIndex][i_ButtonNumber].Equals(null);
+                return !m_ButtonColorsPressed[i_ButtonIndex][i_ButtonNumber].Equals(null);
             }
             catch (Exception)
             {
@@ -169,12 +174,12 @@ namespace Final_project.Ui
 
         private bool userEnterFourGuesses(int i_Index)
         {
-            return r_ButtonColorsPressed[i_Index].Count.Equals(4);
+            return m_ButtonColorsPressed[i_Index].Count.Equals(4);
         }
 
         private bool userEnterColorThatAlreadyPick(int i_Index, Color i_Color)
         {
-            return r_ButtonColorsPressed[i_Index].Contains(i_Color);
+            return m_ButtonColorsPressed[i_Index].Contains(i_Color);
         }
 
         private bool isButtonEndGuessingEnable(int i_Index)
@@ -184,17 +189,27 @@ namespace Final_project.Ui
 
         private void buttonEndGuessing_Click(object i_Sender, EventArgs i_Event)
         {
-            s_NumberOfChance++;
             ButtonEndGuessing button = (ButtonEndGuessing)i_Sender;
             int buttonIndex = button.ButtonIndex;
 
+            s_NumberOfChance++;
             button.Enabled = false;
             button.CountButtonPressed++;
-            r_GameLogic.UpdateGuessingLetters(r_ButtonColorsPressed[buttonIndex], buttonIndex);
-            r_GameLogic.ComparisonRandomGuessesToUserGuesses(buttonIndex);
+            insertToGuessingLetters(m_ButtonColorsPressed[buttonIndex], buttonIndex);
+            comparisonRandomGuessesToUserGuesses(buttonIndex);
             updateButtonGuessingResult(buttonIndex);
             disableUserGuessing(buttonIndex);
             gameOver(button.CountButtonPressed, buttonIndex);
+        }
+
+        private void insertToGuessingLetters(List<Color> i_ColorsToInsert, int i_ButtonIndex)
+        {
+            r_GameLogic.InsertToGuessingLetters(i_ColorsToInsert, i_ButtonIndex);
+        }
+
+        private void comparisonRandomGuessesToUserGuesses(int i_ButtonIndex)
+        {
+            r_GameLogic.ComparisonRandomGuessesToUserGuesses(i_ButtonIndex);
         }
 
         private bool winner(int i_ButtonIndex)

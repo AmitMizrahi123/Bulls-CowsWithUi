@@ -59,7 +59,7 @@ namespace Final_project.Logic
             return r_RandomGuessesModel.RandomGuessLetters.Contains(i_RandomGuessLetter);
         }
 
-        public void UpdateGuessingLetters(List<Color> i_Color, int i_Index)
+        public void InsertToGuessingLetters(List<Color> i_Color, int i_Index)
         {
             int index = 0;
 

@@ -180,5 +180,21 @@ namespace Final_project.Logic
 
             return color;
         }
+
+        public bool IsWinner(int i_Index)
+        {
+            bool isWinner = true;
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (r_BoardModel.GuessingResult[i_Index, i] != eGuessResult.V)
+                {
+                    isWinner = false;
+                    break;
+                }
+            }
+
+            return isWinner;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using Final_project.Logic;
 using Final_project.Model;
@@ -11,12 +12,14 @@ namespace Final_project.Ui
     {
         private static int s_GuessingNumber;
         private static int s_GuessNumber;
+        private const int k_AddingHeight = 65;
         private readonly List<List<Color>> r_ButtonColorsPressed;
         private readonly GameLogic r_GameLogic;
         private GameSettingsModel m_GameSettingsModel;
         private ButtonGuess[,] m_ButtonsGuess;
         private ButtonEndGuessing[] m_ButtonEndGuessing;
         private Button[,] m_ButtonGuessingResults;
+        private bool m_IsWinner = false;    
 
         public BoolPgia(GameSettingsModel i_GameSettingsModel, GameLogic i_GameLogic)
         {
@@ -47,7 +50,7 @@ namespace Final_project.Ui
             m_ButtonsGuess = new ButtonGuess[numberOfChances, defaultNumberOfGuessing];
             for(int i = 0; i < numberOfChances; i++)
             {
-                this.Height += 65;
+                this.Height += k_AddingHeight;
 
                 for (int j = 0; j < defaultNumberOfGuessing; j++)
                 {
@@ -185,16 +188,35 @@ namespace Final_project.Ui
             r_GameLogic.ComparisonRandomGuessesToUserGuesses(buttonIndex);
             updateButtonGuessingResult(buttonIndex);
             disableUserGuessing(buttonIndex);
-            // Todo winner
-            gameOver(button.CountButtonPressed);
+            winner(buttonIndex);
+            if(m_IsWinner.Equals(true))
+            {
+                Thread.Sleep(5000);
+                Close();
+            }
+
+            if(gameOver(button.CountButtonPressed))
+            {
+                Close();
+            }
         }
 
-        private void gameOver(int i_ButtonPressedCount)
+        private void winner(int i_ButtonIndex)
         {
-            if(i_ButtonPressedCount.Equals(m_GameSettingsModel.NumberOfChances))
+            if(r_GameLogic.IsWinner(i_ButtonIndex))
             {
-                Environment.Exit(0);
+                for(int i = 0; i < m_GameSettingsModel.DefaultNumberOfGuessing; i++)
+                {
+                    m_ButtonsGuessing[i].BackColor = r_ButtonColorsPressed[i_ButtonIndex][i];
+                }
+
+                m_IsWinner = true;
             }
+        }
+
+        private bool gameOver(int i_ButtonPressedCount)
+        {
+            return i_ButtonPressedCount.Equals(m_GameSettingsModel.NumberOfChances);
         }
 
         private void disableUserGuessing(int i_ButtonIndex)

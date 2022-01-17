@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -36,6 +37,7 @@ namespace Final_project.Ui
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            m_ButtonsGuessing = new List<Button>();
             this.SuspendLayout();
             // 
             // button1
@@ -87,6 +89,10 @@ namespace Final_project.Ui
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.m_ButtonsGuessing.Add(this.button1);
+            this.m_ButtonsGuessing.Add(this.button2);
+            this.m_ButtonsGuessing.Add(this.button3);
+            this.m_ButtonsGuessing.Add(this.button4);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "BoolPgia";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -101,5 +107,6 @@ namespace Final_project.Ui
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private List<Button> m_ButtonsGuessing;
     }
 }

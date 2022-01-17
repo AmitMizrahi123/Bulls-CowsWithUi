@@ -10,16 +10,15 @@ namespace Final_project.Ui
 {
     public partial class BoolPgia : Form
     {
-        private static int s_GuessingNumber;
-        private static int s_GuessNumber;
+        private static int s_NumberOfChance = 0;
         private const int k_AddingHeight = 65;
+        private const string k_ButtonCancelName = "0";
         private readonly List<List<Color>> r_ButtonColorsPressed;
         private readonly GameLogic r_GameLogic;
         private GameSettingsModel m_GameSettingsModel;
         private ButtonGuess[,] m_ButtonsGuess;
         private ButtonEndGuessing[] m_ButtonEndGuessing;
         private Button[,] m_ButtonGuessingResults;
-        private bool m_IsWinner = false;    
 
         public BoolPgia(GameSettingsModel i_GameSettingsModel, GameLogic i_GameLogic)
         {
@@ -125,27 +124,34 @@ namespace Final_project.Ui
             ButtonGuess button = (ButtonGuess)i_Sender;
             int buttonIndex = button.ButtonIndex;
             int buttonNumber = button.ButtonNumber;
-            if(buttonIndex.Equals(s_GuessingNumber) && buttonNumber.Equals(s_GuessNumber))
+            if(buttonIndex.Equals(s_NumberOfChance))
             {
                 FlowLayoutPanelColor flowLayoutPanelColor = new FlowLayoutPanelColor(ref m_GameSettingsModel);
 
                 flowLayoutPanelColor.ShowDialog();
-                if (!userEnterColorThatAlreadyPick(buttonIndex, m_GameSettingsModel.Color))
+                if(!userClickOnCancelButton(m_GameSettingsModel.Color.Name))
                 {
-                    if (userEnterFourGuesses(buttonIndex) || userChangeColorThatHeAlreadyPick(buttonIndex, buttonNumber))
+                    if (!userEnterColorThatAlreadyPick(buttonIndex, m_GameSettingsModel.Color))
                     {
-                        r_ButtonColorsPressed[buttonIndex].Remove(button.BackColor);
-                    }
+                        if (userEnterFourGuesses(buttonIndex) || userChangeColorThatHeAlreadyPick(buttonIndex, buttonNumber))
+                        {
+                            r_ButtonColorsPressed[buttonIndex].Remove(button.BackColor);
+                        }
 
-                    s_GuessNumber++;
-                    button.BackColor = m_GameSettingsModel.Color;
-                    r_ButtonColorsPressed[buttonIndex].Add(m_GameSettingsModel.Color);
-                    if (userEnterFourGuesses(buttonIndex) && !isButtonEndGuessingEnable(buttonIndex))
-                    {
-                        m_ButtonEndGuessing[buttonIndex].Enabled = true;
+                        button.BackColor = m_GameSettingsModel.Color;
+                        r_ButtonColorsPressed[buttonIndex].Add(m_GameSettingsModel.Color);
+                        if (userEnterFourGuesses(buttonIndex) && !isButtonEndGuessingEnable(buttonIndex))
+                        {
+                            m_ButtonEndGuessing[buttonIndex].Enabled = true;
+                        }
                     }
                 }
             }
+        }
+
+        private bool userClickOnCancelButton(string i_ButtonBackColorName)
+        {
+            return i_ButtonBackColorName.Equals(k_ButtonCancelName);
         }
 
         private bool userChangeColorThatHeAlreadyPick(int i_ButtonIndex, int i_ButtonNumber)
@@ -177,8 +183,7 @@ namespace Final_project.Ui
 
         private void buttonEndGuessing_Click(object i_Sender, EventArgs i_Event)
         {
-            s_GuessNumber = 0;
-            s_GuessingNumber++;
+            s_NumberOfChance++;
             ButtonEndGuessing button = (ButtonEndGuessing)i_Sender;
             int buttonIndex = button.ButtonIndex;
 
@@ -188,35 +193,33 @@ namespace Final_project.Ui
             r_GameLogic.ComparisonRandomGuessesToUserGuesses(buttonIndex);
             updateButtonGuessingResult(buttonIndex);
             disableUserGuessing(buttonIndex);
-            winner(buttonIndex);
-            if(m_IsWinner.Equals(true))
+            gameOver(button.CountButtonPressed, buttonIndex);
+        }
+
+        private bool winner(int i_ButtonIndex)
+        {
+            return r_GameLogic.IsWinner(i_ButtonIndex);
+        }
+
+        private bool endGuessing(int i_ButtonPressedCount)
+        {
+            return r_GameLogic.GameOver(i_ButtonPressedCount);
+        }
+
+        private void gameOver(int i_ButtonPressedCount, int i_ButtonIndex)
+        {
+            if(endGuessing(i_ButtonPressedCount) || winner(i_ButtonIndex))
             {
+                List<Color> colors = r_GameLogic.GetRandomResultInColor();
+
+                for (int i = 0; i < m_GameSettingsModel.DefaultNumberOfGuessing; i++)
+                {
+                    m_ButtonsGuessing[i].BackColor = colors[i];
+                }
+
                 Thread.Sleep(5000);
                 Close();
             }
-
-            if(gameOver(button.CountButtonPressed))
-            {
-                Close();
-            }
-        }
-
-        private void winner(int i_ButtonIndex)
-        {
-            if(r_GameLogic.IsWinner(i_ButtonIndex))
-            {
-                for(int i = 0; i < m_GameSettingsModel.DefaultNumberOfGuessing; i++)
-                {
-                    m_ButtonsGuessing[i].BackColor = r_ButtonColorsPressed[i_ButtonIndex][i];
-                }
-
-                m_IsWinner = true;
-            }
-        }
-
-        private bool gameOver(int i_ButtonPressedCount)
-        {
-            return i_ButtonPressedCount.Equals(m_GameSettingsModel.NumberOfChances);
         }
 
         private void disableUserGuessing(int i_ButtonIndex)

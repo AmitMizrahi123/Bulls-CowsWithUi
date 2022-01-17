@@ -29,7 +29,7 @@ namespace Final_project.Logic
 
         private void generateGuessingComputer()
         {
-            while (r_RandomGuessesModel.RandomGuessLetters.Count != r_BoardModel.DefaultArraySize)
+            /*while (r_RandomGuessesModel.RandomGuessLetters.Count != r_BoardModel.DefaultArraySize)
             {
                 eGuessLetter randomGuessLetter = getRandomGuessLetter();
 
@@ -39,7 +39,12 @@ namespace Final_project.Logic
                 }
 
                 r_RandomGuessesModel.RandomGuessLetters.Add(randomGuessLetter);
-            }
+            }*/
+
+            r_RandomGuessesModel.RandomGuessLetters.Add(eGuessLetter.A);
+            r_RandomGuessesModel.RandomGuessLetters.Add(eGuessLetter.B);
+            r_RandomGuessesModel.RandomGuessLetters.Add(eGuessLetter.C);
+            r_RandomGuessesModel.RandomGuessLetters.Add(eGuessLetter.D);
         }
 
         private eGuessLetter getRandomGuessLetter()
@@ -110,8 +115,7 @@ namespace Final_project.Logic
 
             for (int j = 0; j < r_BoardModel.DefaultArraySize; j++)
             {
-                if (checkIfUserGuessEqualsToRandomGuesses(r_BoardModel,
-                    r_RandomGuessesModel.RandomGuessLetters, i_Index, j))
+                if (checkIfUserGuessEqualsToRandomGuesses(r_BoardModel, r_RandomGuessesModel.RandomGuessLetters, i_Index, j))
                 {
                     r_BoardModel.GuessingResult[i_Index, guessingResultIndex++] = eGuessResult.V;
                 }
@@ -195,6 +199,60 @@ namespace Final_project.Logic
             }
 
             return isWinner;
+        }
+
+        public bool GameOver(int i_ButtonPressedCount)
+        {
+            return i_ButtonPressedCount.Equals(r_BoardModel.BoardSize);
+        }
+
+        public List<Color> GetRandomResultInColor()
+        {
+            List<Color> colors = new List<Color>();
+
+            foreach(eGuessLetter randomGuessLetter in r_RandomGuessesModel.RandomGuessLetters)
+            {
+                Color color = convertRandomGuessLetterEnumToColor(randomGuessLetter);
+
+                colors.Add(color);
+            }
+
+            return colors;
+        }
+
+        private Color convertRandomGuessLetterEnumToColor(eGuessLetter randomGuessLetter)
+        {
+            Color color = new Color();
+
+            switch (randomGuessLetter)
+            {
+                case eGuessLetter.A:
+                    color = Color.Purple;
+                    break;
+                case eGuessLetter.B:
+                    color = Color.Red;
+                    break;
+                case eGuessLetter.C:
+                    color = Color.Green;
+                    break;
+                case eGuessLetter.D:
+                    color = Color.SkyBlue;
+                    break;
+                case eGuessLetter.E:
+                    color = Color.Blue;
+                    break;
+                case eGuessLetter.F:
+                    color = Color.Yellow;
+                    break;
+                case eGuessLetter.G:
+                    color = Color.Brown;
+                    break;
+                case eGuessLetter.H:
+                    color = Color.White;
+                    break;
+            }
+
+            return color;
         }
     }
 }

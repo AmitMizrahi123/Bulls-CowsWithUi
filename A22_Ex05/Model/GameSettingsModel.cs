@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Final_project.Model
+namespace A22_Ex05.Model
 {
     public class GameSettingsModel
     {

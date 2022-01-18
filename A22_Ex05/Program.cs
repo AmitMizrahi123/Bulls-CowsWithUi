@@ -1,6 +1,6 @@
-﻿using Final_project.Ui;
+﻿using A22_Ex05.Ui;
 
-namespace Final_project
+namespace A22_Ex05
 {
     public class Program
     {

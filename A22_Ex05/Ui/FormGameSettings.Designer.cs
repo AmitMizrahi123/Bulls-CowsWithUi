@@ -1,7 +1,4 @@
-﻿
-using System.Windows.Forms;
-
-namespace Final_project.Ui
+﻿namespace A22_Ex05.Ui
 {
     partial class FormGameSettings
     {

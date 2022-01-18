@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace Final_project.Ui
+namespace A22_Ex05.Ui
 {
     public class ButtonEndGuessing : Button
     {

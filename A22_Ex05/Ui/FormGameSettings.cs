@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using Final_project.Model;
+using A22_Ex05.Model;
 
-namespace Final_project.Ui
+namespace A22_Ex05.Ui
 {
     public partial class FormGameSettings : Form
     {

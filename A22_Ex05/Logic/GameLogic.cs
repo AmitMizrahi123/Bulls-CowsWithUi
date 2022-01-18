@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Final_Project.Enum;
-using Final_Project.Model;
+using A22_Ex05.Enum;
+using A22_Ex05.Model;
 
-namespace Final_project.Logic
+namespace A22_Ex05.Logic
 {
     public class GameLogic
     {

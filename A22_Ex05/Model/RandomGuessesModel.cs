@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Final_Project.Enum;
+using A22_Ex05.Enum;
 
-namespace Final_Project.Model
+namespace A22_Ex05.Model
 {
     public class RandomGuessesModel
     {

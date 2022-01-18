@@ -5,10 +5,15 @@ namespace A22_Ex05.Ui
 {
     public class UiManager
     {
-        private GameSettingsModel m_GameSettingsModel = new GameSettingsModel();
+        private GameSettingsModel m_GameSettingsModel;
         private FormGameSettings m_FormGameSettings;
         private GameLogic m_GameLogic;
         private BoolPgia m_BoolPgia;
+
+        public UiManager()
+        {
+            m_GameSettingsModel = new GameSettingsModel();
+        }
 
         public void Execute()
         {

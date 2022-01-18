@@ -29,7 +29,7 @@ namespace Final_project.Logic
 
         private void generateGuessingComputer()
         {
-            /*while (r_RandomGuessesModel.RandomGuessLetters.Count != r_BoardModel.DefaultArraySize)
+            while (r_RandomGuessesModel.RandomGuessLetters.Count != r_BoardModel.DefaultArraySize)
             {
                 eGuessLetter randomGuessLetter = getRandomGuessLetter();
 
@@ -39,12 +39,7 @@ namespace Final_project.Logic
                 }
 
                 r_RandomGuessesModel.RandomGuessLetters.Add(randomGuessLetter);
-            }*/
-
-            r_RandomGuessesModel.RandomGuessLetters.Add(eGuessLetter.A);
-            r_RandomGuessesModel.RandomGuessLetters.Add(eGuessLetter.B);
-            r_RandomGuessesModel.RandomGuessLetters.Add(eGuessLetter.C);
-            r_RandomGuessesModel.RandomGuessLetters.Add(eGuessLetter.D);
+            }
         }
 
         private eGuessLetter getRandomGuessLetter()

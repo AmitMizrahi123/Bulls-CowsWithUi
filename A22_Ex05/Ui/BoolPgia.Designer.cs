@@ -78,10 +78,10 @@ namespace A22_Ex05.Ui
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(380, 121);
+            this.Controls.Add(this.m_ButtonGuess1);
+            this.Controls.Add(this.m_ButtonGuess2);
             this.Controls.Add(this.m_ButtonGuess3);
             this.Controls.Add(this.m_ButtonGuess4);
-            this.Controls.Add(this.m_ButtonGuess2);
-            this.Controls.Add(this.m_ButtonGuess1);
             this.Name = "BoolPgia";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bool Pgia";
@@ -91,10 +91,9 @@ namespace A22_Ex05.Ui
 
         #endregion
 
-        private System.Windows.Forms.Button m_ButtonGuess1;
-        private System.Windows.Forms.Button m_ButtonGuess2;
-        private System.Windows.Forms.Button m_ButtonGuess3;
-        private System.Windows.Forms.Button m_ButtonGuess4;
-        private List<Button> m_ButtonsGuessing;
+        private Button m_ButtonGuess1;
+        private Button m_ButtonGuess2;
+        private Button m_ButtonGuess3;
+        private Button m_ButtonGuess4;
     }
 }

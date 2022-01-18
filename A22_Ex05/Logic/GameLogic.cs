@@ -8,7 +8,8 @@ namespace A22_Ex05.Logic
 {
     public class GameLogic
     {
-        private const int k_MaximumRandomNumber = 7;
+        private const int k_MaximumRandomNumber = 8;
+        private const int k_MinimumRandomNumber = 1;
         private const char k_UpdateConvertingChar = 'A';
         private readonly RandomGuessesModel r_RandomGuessesModel;
         private readonly BoardModel r_BoardModel;
@@ -44,7 +45,7 @@ namespace A22_Ex05.Logic
 
         private eGuessLetter getRandomGuessLetter()
         {
-            int guessingNumberFromComputer = r_Random.Next(k_MaximumRandomNumber);
+            int guessingNumberFromComputer = r_Random.Next(k_MinimumRandomNumber, k_MaximumRandomNumber);
             char guessingCharFromComputer = Convert.ToChar(guessingNumberFromComputer + k_UpdateConvertingChar);
             return (eGuessLetter)guessingCharFromComputer;
         }

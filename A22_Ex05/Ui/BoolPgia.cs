@@ -229,7 +229,7 @@ namespace A22_Ex05.Ui
 
                 for (int i = 0; i < m_GameSettingsModel.DefaultNumberOfGuessing; i++)
                 {
-                    m_ButtonsGuessing[i].BackColor = colors[i];
+                    this.Controls[i].BackColor = colors[i];
                 }
 
                 for(int i = i_ButtonIndex; i < m_GameSettingsModel.NumberOfChances; i++)
@@ -257,7 +257,14 @@ namespace A22_Ex05.Ui
             
             foreach(Color color in colors)
             {
-                m_ButtonGuessingResults[i_ButtonIndex, index++].BackColor = color;
+                if(!color.Name.Equals(k_ButtonCancelName))
+                {
+                    m_ButtonGuessingResults[i_ButtonIndex, index++].BackColor = color;
+                }
+                else
+                {
+                    m_ButtonGuessingResults[i_ButtonIndex, index++].BackColor = Color.Empty;
+                }
             }
         }
     }

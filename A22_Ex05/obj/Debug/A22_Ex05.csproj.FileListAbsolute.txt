@@ -1,0 +1,10 @@
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\A22_Ex05\bin\Debug\A22_Ex05.exe.config
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\A22_Ex05\bin\Debug\A22_Ex05.exe
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\A22_Ex05\bin\Debug\A22_Ex05.pdb
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\A22_Ex05\obj\Debug\A22_Ex05.csproj.AssemblyReference.cache
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\A22_Ex05\obj\Debug\Final_project.Ui.BoolPgia.resources
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\A22_Ex05\obj\Debug\Final_project.Ui.FormGameSettings.resources
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\A22_Ex05\obj\Debug\A22_Ex05.csproj.GenerateResource.cache
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\A22_Ex05\obj\Debug\A22_Ex05.csproj.CoreCompileInputs.cache
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\A22_Ex05\obj\Debug\A22_Ex05.exe
+C:\Users\97250\source\repos\A22 Ex05 AmitMizrahi 316532548 YossiBengaev 313524795\A22_Ex05\obj\Debug\A22_Ex05.pdb

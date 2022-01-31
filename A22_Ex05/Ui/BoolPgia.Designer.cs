@@ -39,6 +39,7 @@ namespace A22_Ex05.Ui
             // 
             // m_ButtonGuess1
             // 
+            this.m_ButtonGuess1.Enabled = false;
             this.m_ButtonGuess1.BackColor = System.Drawing.Color.Black;
             this.m_ButtonGuess1.Location = new System.Drawing.Point(12, 12);
             this.m_ButtonGuess1.Name = "m_ButtonGuess1";
@@ -48,6 +49,7 @@ namespace A22_Ex05.Ui
             // 
             // m_ButtonGuess2
             // 
+            this.m_ButtonGuess2.Enabled = false;
             this.m_ButtonGuess2.BackColor = System.Drawing.Color.Black;
             this.m_ButtonGuess2.Location = new System.Drawing.Point(68, 12);
             this.m_ButtonGuess2.Name = "m_ButtonGuess2";
@@ -57,6 +59,7 @@ namespace A22_Ex05.Ui
             // 
             // m_ButtonGuess3
             // 
+            this.m_ButtonGuess3.Enabled = false;
             this.m_ButtonGuess3.BackColor = System.Drawing.Color.Black;
             this.m_ButtonGuess3.Location = new System.Drawing.Point(124, 12);
             this.m_ButtonGuess3.Name = "m_ButtonGuess3";
@@ -66,6 +69,7 @@ namespace A22_Ex05.Ui
             // 
             // m_ButtonGuess4
             // 
+            this.m_ButtonGuess4.Enabled = false;
             this.m_ButtonGuess4.BackColor = System.Drawing.Color.Black;
             this.m_ButtonGuess4.Location = new System.Drawing.Point(180, 12);
             this.m_ButtonGuess4.Name = "m_ButtonGuess4";

@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using A22_Ex05.Model;
 
 namespace A22_Ex05.Ui
 {
     public class FlowLayoutPanelColor : Form
     {
+        private Color m_Color;
         private readonly List<Color> r_Colors;
-        private readonly GameSettingsModel r_GameSettingsModel;
 
-        public FlowLayoutPanelColor(ref GameSettingsModel io_GameSettingsModel)
+        public FlowLayoutPanelColor()
         {
             r_Colors = new List<Color>()
             {
@@ -25,7 +24,6 @@ namespace A22_Ex05.Ui
                 Color.Brown,
                 Color.White
             };
-            r_GameSettingsModel = io_GameSettingsModel;
             initializeComponents();
         }
 
@@ -33,6 +31,7 @@ namespace A22_Ex05.Ui
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Size = new Size(260, 200);
+            this.Text = @"Pick a color:";
             for(int i = 0; i < 8; i++)
             {
                 Button button;
@@ -63,8 +62,20 @@ namespace A22_Ex05.Ui
 
         private void button_Click(object i_Sender, EventArgs i_Event)
         {
-            r_GameSettingsModel.Color = ((Button)i_Sender).BackColor;
+            Color = ((Button)i_Sender).BackColor;
             Close();
+        }
+
+        public Color Color
+        {
+            get
+            {
+                return m_Color;
+            }
+            set
+            {
+                m_Color = value;
+            }
         }
     }
 }

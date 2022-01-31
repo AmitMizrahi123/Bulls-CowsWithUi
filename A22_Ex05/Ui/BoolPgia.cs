@@ -13,8 +13,8 @@ namespace A22_Ex05.Ui
         private const int k_AddingHeight = 65;
         private const string k_ButtonCancelName = "0";
         private readonly GameLogic r_GameLogic;
+        private readonly GameSettingsModel r_GameSettingsModel;
         private List<List<Color>> m_ButtonColorsPressed;
-        private GameSettingsModel m_GameSettingsModel;
         private ButtonGuess[,] m_ButtonsGuess;
         private ButtonEndGuessing[] m_ButtonEndGuessing;
         private Button[,] m_ButtonGuessingResults;
@@ -22,8 +22,8 @@ namespace A22_Ex05.Ui
         public BoolPgia(GameSettingsModel i_GameSettingsModel, GameLogic i_GameLogic)
         {
             r_GameLogic = i_GameLogic;
-            m_GameSettingsModel = i_GameSettingsModel;
-            initializeButtonColorsPressedMatrix(m_GameSettingsModel.NumberOfChances);
+            r_GameSettingsModel = i_GameSettingsModel;
+            initializeButtonColorsPressedMatrix(r_GameSettingsModel.NumberOfChances);
             InitializeComponent();
             initializeBoard();
         }
@@ -46,8 +46,8 @@ namespace A22_Ex05.Ui
 
         private void generateButtonGuess()
         {
-            int numberOfChances = m_GameSettingsModel.NumberOfChances;
-            int defaultNumberOfGuessing = m_GameSettingsModel.DefaultNumberOfGuessing;
+            int numberOfChances = r_GameSettingsModel.NumberOfChances;
+            int defaultNumberOfGuessing = r_GameSettingsModel.DefaultNumberOfGuessing;
 
             m_ButtonsGuess = new ButtonGuess[numberOfChances, defaultNumberOfGuessing];
             for(int i = 0; i < numberOfChances; i++)
@@ -70,7 +70,7 @@ namespace A22_Ex05.Ui
 
         private void generateButtonEndGuessing()
         {
-            int numberOfChances = m_GameSettingsModel.NumberOfChances;
+            int numberOfChances = r_GameSettingsModel.NumberOfChances;
 
             m_ButtonEndGuessing = new ButtonEndGuessing[numberOfChances];
             for(int i = 0; i < numberOfChances; i++)
@@ -90,8 +90,8 @@ namespace A22_Ex05.Ui
 
         private void generateButtonGuessingResult()
         {
-            int numberOfChances = m_GameSettingsModel.NumberOfChances;
-            int defaultNumberOfGuessing = m_GameSettingsModel.DefaultNumberOfGuessing;
+            int numberOfChances = r_GameSettingsModel.NumberOfChances;
+            int defaultNumberOfGuessing = r_GameSettingsModel.DefaultNumberOfGuessing;
 
             m_ButtonGuessingResults = new Button[numberOfChances, defaultNumberOfGuessing];
             for (int i = 0; i < numberOfChances; i++)
@@ -128,23 +128,22 @@ namespace A22_Ex05.Ui
             int buttonIndex = button.ButtonIndex;
             int buttonNumber = button.ButtonNumber;
 
-            if(buttonIndex.Equals(s_NumberOfChance))
+            if(availableRowOptionToGuess(buttonIndex))
             {
-                FlowLayoutPanelColor flowLayoutPanelColor = new FlowLayoutPanelColor(ref m_GameSettingsModel);
+                FlowLayoutPanelColor flowLayoutPanelColor = new FlowLayoutPanelColor();
 
                 flowLayoutPanelColor.ShowDialog();
-                if(!userClickOnCancelButton(m_GameSettingsModel.Color.Name))
+                if(!userClickOnCancelButton(flowLayoutPanelColor.Color.Name))
                 {
-                    if (!userEnterColorThatAlreadyPick(buttonIndex, m_GameSettingsModel.Color))
+                    if (!userEnterColorThatAlreadyPick(buttonIndex, flowLayoutPanelColor.Color))
                     {
                         if (userEnterFourGuesses(buttonIndex) || userChangeColorThatHeAlreadyPick(buttonIndex, buttonNumber))
                         {
                             m_ButtonColorsPressed[buttonIndex].Remove(button.BackColor);
                         }
 
-                        button.BackColor = m_GameSettingsModel.Color;
-                        m_ButtonColorsPressed[buttonIndex].Add(m_GameSettingsModel.Color);
-                        m_GameSettingsModel.Color = Color.Empty;
+                        button.BackColor = flowLayoutPanelColor.Color;
+                        m_ButtonColorsPressed[buttonIndex].Add(flowLayoutPanelColor.Color);
                         if (userEnterFourGuesses(buttonIndex) && !isButtonEndGuessingEnable(buttonIndex))
                         {
                             m_ButtonEndGuessing[buttonIndex].Enabled = true;
@@ -152,6 +151,11 @@ namespace A22_Ex05.Ui
                     }
                 }
             }
+        }
+
+        private bool availableRowOptionToGuess(int i_ButtonIndex)
+        {
+            return i_ButtonIndex.Equals(s_NumberOfChance);
         }
 
         private bool userClickOnCancelButton(string i_ButtonBackColorName)
@@ -227,14 +231,14 @@ namespace A22_Ex05.Ui
             {
                 List<Color> colors = r_GameLogic.GetRandomResultInColor();
 
-                for (int i = 0; i < m_GameSettingsModel.DefaultNumberOfGuessing; i++)
+                for (int i = 0; i < r_GameSettingsModel.DefaultNumberOfGuessing; i++)
                 {
                     this.Controls[i].BackColor = colors[i];
                 }
 
-                for(int i = i_ButtonIndex; i < m_GameSettingsModel.NumberOfChances; i++)
+                for(int i = i_ButtonIndex; i < r_GameSettingsModel.NumberOfChances; i++)
                 {
-                    for(int j = 0; j < m_GameSettingsModel.DefaultNumberOfGuessing; j++)
+                    for(int j = 0; j < r_GameSettingsModel.DefaultNumberOfGuessing; j++)
                     {
                         m_ButtonsGuess[i, j].Enabled = false;
                     }
@@ -244,7 +248,7 @@ namespace A22_Ex05.Ui
 
         private void disableUserGuessing(int i_ButtonIndex)
         {
-            for(int i = 0; i < m_GameSettingsModel.DefaultNumberOfGuessing; i++)
+            for(int i = 0; i < r_GameSettingsModel.DefaultNumberOfGuessing; i++)
             {
                 m_ButtonsGuess[i_ButtonIndex, i].Enabled = false;
             }
